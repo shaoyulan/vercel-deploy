@@ -4,7 +4,7 @@
 
 [SpaceX Launche Records](https://vercel-deploy-one-blond.vercel.app/)
 
-## Run On Local
+## Run Locally
 
 run and visit [http://localhost:3000](http://localhost:3000)
 
