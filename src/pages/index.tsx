@@ -1,12 +1,10 @@
 import { ApolloProvider } from "@apollo/client";
 import client from "@/lib/apolloClient";
-import { Inter } from 'next/font/google'
 import LaunchesTable from "@/components/LaunchesTable";
 import DateRangePicker from 'rsuite/DateRangePicker';
 import 'rsuite/dist/rsuite.min.css';
-import { Input, InputGroup, Button } from 'rsuite';
+import { Input, InputGroup, Button, Container } from 'rsuite';
 import SearchIcon from '@rsuite/icons/Search';
-import { Container } from 'rsuite';
 import { useState } from "react";
 
 export default function Home() {

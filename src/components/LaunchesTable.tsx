@@ -24,7 +24,7 @@ type LaunchRecord = {
 }
 
 type PostData = {
-  launches: LaunchRecord[]
+  launches: LaunchRecord[];
 }
 
 type LaunchRecordFlat = {
@@ -40,13 +40,13 @@ export default function LaunchesTable({keyword = '', startDate = '', endDate = '
   const QUERY = gql`
     query Query {
       launches {
+        id
         mission_name
         rocket {
           rocket_name
           rocket_type
         }
         launch_date_local
-        id
       }
     }
   `;
@@ -66,10 +66,11 @@ export default function LaunchesTable({keyword = '', startDate = '', endDate = '
         rocket_type: item?.rocket?.rocket_type,
         launch_date_local: item?.launch_date_local,
       }
-    })
-    setList(processed)
+    });
+    setList(processed);
   }
 
+  // 以字串比較排序
   function compareByString(a:string, b:string, direction:string): number{
     let A = a.toUpperCase();
     let B = b.toUpperCase();
@@ -81,6 +82,7 @@ export default function LaunchesTable({keyword = '', startDate = '', endDate = '
     }
   }
 
+  // 以日期比較排序
   function compareByDate(a:string, b:string, direction:string): number{
     const ascResult = new Date(a).getTime() - new Date(b).getTime();
 
@@ -98,10 +100,10 @@ export default function LaunchesTable({keyword = '', startDate = '', endDate = '
       if ( isValidKey(column, a) ) {
 
         if ( column == 'launch_date_local' ) { 
-          return compareByDate(a[column], b[column], direction)
+          return compareByDate(a[column], b[column], direction);
         } 
         
-        return compareByString(a[column], b[column], direction)
+        return compareByString(a[column], b[column], direction);
       }
 
       return 0
@@ -119,7 +121,7 @@ export default function LaunchesTable({keyword = '', startDate = '', endDate = '
 
   useEffect(() => {
     if ( data ){
-      processData(data)
+      processData(data);
     }
   }, [data]);
 
@@ -146,17 +148,17 @@ export default function LaunchesTable({keyword = '', startDate = '', endDate = '
       item.mission_name || '',
       item.rocket_name || '',
       item.rocket_type || '',
-    ].map(v=>v.toLowerCase()).join(' ')
+    ].map(v=>v.toLowerCase()).join(' ');
 
-    const keywordPass = text.includes(keyword.toLowerCase())
-    const startDatePass = startDate ? moment(item.launch_date_local).isSameOrAfter(moment(startDate), 'day') : true
-    const endDatePass = endDate ? moment(item.launch_date_local).isSameOrBefore(moment(endDate), 'day') : true
+    const keywordPass = text.includes(keyword.toLowerCase());
+    const startDatePass = startDate ? moment(item.launch_date_local).isSameOrAfter(moment(startDate), 'day') : true;
+    const endDatePass = endDate ? moment(item.launch_date_local).isSameOrBefore(moment(endDate), 'day') : true;
 
-    return keywordPass && startDatePass && endDatePass
+    return keywordPass && startDatePass && endDatePass;
   });
 
   const pagedList = filteredList.slice((activePage - 1) * ITEMS_PER_PAGE, activePage * ITEMS_PER_PAGE);
-  const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE)
+  const totalPages = Math.ceil(filteredList.length / ITEMS_PER_PAGE);
 
   return (
     <>
